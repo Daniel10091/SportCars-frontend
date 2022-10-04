@@ -1,0 +1,90 @@
+.app-car-localization {
+  position: relative;
+  width: 340px;
+  height: 60px;
+  background-color: var(--Platinum);
+  border-radius: 14px;
+  will-change: contents;
+  .car-localization-selection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-inline: 15px;
+    line-height: 22px;
+    border: 1px solid var(--LightGrey);
+    border-radius: 14px;
+    will-change: contents;
+    cursor: pointer;
+    span {
+      font-size: 14px;
+      color: var(--DavysGrey);
+      pointer-events: none;
+      user-select: none;
+    }
+    b {
+      font-size: 16px;
+      font-weight: normal;
+      color: var(--EerieBlack);
+      pointer-events: none;
+      will-change: contents;
+      user-select: none;
+    }
+  }
+  .car-localization-selection-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    max-height: 400px;
+    display: none;
+    flex-direction: column;
+    background-color: var(--Platinum);
+    border: 1px solid var(--LightGrey);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+    will-change: contents;
+    z-index: 1000;
+    overflow: hidden;
+    .car-localization-selection-menu-content {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      overflow-y: visible;
+      .menu-option {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-inline: 15px;
+        cursor: pointer;
+        overflow: hidden;
+        overflow-y: visible;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--LightGrey);
+        }
+        label {
+          font-size: 16px;
+          color: var(--EerieBlack);
+          pointer-events: none;
+          pointer-events: none;
+          user-select: none;
+        }
+      }
+    }
+  }
+  &.is-show {
+    border-radius: 14px 14px 0 0;
+    .car-localization-selection {
+      border-radius: 14px 14px 0 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+    .car-localization-selection-menu {
+      display: flex;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@import url("Poppins/style.css");
+@import url("Noto-Sans/style.css");
+@import url("Lato/style.css");
+@import url("Oleo-Script-Swash-Caps/style.css");
+@import url("Pacifico/style.css");
+
+:root {
+  --Poppins: 'Poppins', sans-serif;
+  --NotoSans: 'Noto Sans', sans-serif;
+  --Lato: 'Lato', sans-serif;
+  --OleoScriptSwashCaps: 'Oleo Script Swash Caps', cursive;
+  --Pacifico: 'Pacifico', cursive;
+}

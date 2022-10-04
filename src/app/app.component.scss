@@ -1,0 +1,29 @@
+@import url('../styles/fonts/style.css');
+@import url('../styles/variables/index.css');
+
+.app-header {
+  grid-area: header;
+}
+
+.app-main-top-bar {
+  grid-area: topbar;
+}
+
+app-sidebar {
+  grid-area: sidebar;
+}
+
+.container-card-vehicle {
+  grid-area: result;
+}
+
+.app-main {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto 100%;
+  grid-template-areas: "header header"
+                       "topbar topbar"
+                       "sidebar result";
+}

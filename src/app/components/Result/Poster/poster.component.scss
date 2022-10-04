@@ -1,0 +1,187 @@
+.poster-container {
+  width: 100%;
+  display: flex;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  -webkit-box-pack: center;
+  place-content: stretch center;
+  flex-wrap: wrap;
+  gap: 20px;
+  .poster-card {
+    position: relative;
+    max-width: 340px;
+    width: 340px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--White);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    border: 1px solid var(--Platinum);
+    overflow: hidden;
+    .poster-gallery {
+      width: 100%;
+      height: 200px;
+      .poster-image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .poster-content {
+      width: 100%;
+      display: flexbox;
+      flex: 1;
+      .poster-header {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        padding-inline: 20px;
+        padding-block: 20px;
+        pointer-events: none;
+        user-select: none;
+        b {
+          font-size: 20px;
+          color: var(--EerieBlack);
+        }
+        label {
+          font-size: 16px;
+          color: var(--DavysGrey);
+        }
+        .poster-deal-tag {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          height: 26px;
+          display: flex;
+          align-items: center;
+          padding-inline: 12px;
+          padding-block: 1px;
+          line-height: 0;
+          background-color: var(--Honeydew);
+          border-radius: 50px;
+          span {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.4px;
+            font-weight: bold;
+            color: var(--GreenPicment);
+          }
+        }
+      }
+      .poster-features {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        padding-inline: 20px;
+        padding-block: 0 20px;
+        pointer-events: none;
+        user-select: none;
+        b {
+          font-size: 12px;
+          color: var(--QuickSilver);
+        }
+        .features-row {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            i {
+              font-size: 16px;
+              color: var(--DavysGrey);
+            }
+            span {
+              font-size: 16px;
+              color: var(--EerieBlack);
+            }
+          }
+        }
+      }
+      .poster-price-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline: 20px;
+        padding-block: 20px;
+        border-top: 1px solid var(--Platinum);
+        .poster-price {
+          display: flex;
+          pointer-events: none;
+          user-select: none;
+          b {
+            font-size: 20px;
+            color: var(--EerieBlack);
+          }
+        }
+        .poster-details-btn {
+          height: 40px;
+          padding-inline: 20px;
+          font-size: 14px;
+          font-family: var(--Poppins);
+          color: var(--White);
+          letter-spacing: 0.6px;
+          font-weight: bold;
+          user-select: none;
+          background-color: var(--RedOrangeColorWheel);
+          border-radius: 10px;
+          border: 0;
+          cursor: pointer;
+          will-change: contents;
+          transition: all 0.2s ease;
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.2rem #f79165;
+          }
+        }
+      }
+    }
+    .poster-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      border: 1px solid var(--LightGrey);
+      border-radius: 6px;
+      opacity: 0;
+      transform: translateY(-5px);
+      will-change: contents;
+      transition: all 0.2s ease;
+      a {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 0;
+        cursor: pointer;
+        filter: brightness(0.9);
+        will-change: contents;
+        transition: all 0.2s ease;
+        &:hover {
+          filter: brightness(1);
+        }
+        &:first-child {
+          background-color: var(--QuickSilver1);
+          border-radius: 5px 0 0 5px;
+        }
+        &:last-child {
+          background-color: var(--TartOrange);
+          border-radius: 0 5px 5px 0;
+        }
+        i {
+          font-size: 12px;
+          color: var(--White);
+        }
+      }
+    }
+    &:hover .poster-actions {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

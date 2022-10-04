@@ -1,0 +1,341 @@
+<div class="container-card-vehicle">
+  <div class="container-card-vehicle-header">
+    <div class="result-length">
+      <b>22 vehicles</b>
+    </div>
+    <div class="sort-content">
+      <b>Sort by</b>
+      <div class="sort-selection {{sortIsShow}}" (click)="showSortSelection()">
+        <div class="toggle-sort-selection">
+          <b class="sort-selection-selected">Best match</b>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="sort-selection-menu">
+          <menu type="context" class="sort-selection-menu-content">
+            <li class="menu-option">
+              <label>Best match</label>
+            </li>
+          </menu>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-card-vehicle-container">
+    <div class="container-card-vehicle-content">
+      <poster-card></poster-card>
+
+      <!-- Add developer Modal -->
+      <div class="modal fade" id="addAnnouncementModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="adddeveloperModalLabel">Announce</h5>
+              <button type="button" class="modal-close">
+                <i class="fa fa-close"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #addForm="ngForm">
+                <div class="form-group">
+                  <label for="brand">Brand</label>
+                  <input type="text" ngModel name="brand" class="form-control" id="brand" placeholder="Brand" required>
+                </div>
+                <div class="form-group">
+                  <label for="model">Model</label>
+                  <input type="text" ngModel name="model" class="form-control" id="model" placeholder="Model" required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="type">Type</label>
+                    <div class="modal-selection {{modelsIsShow}}" role="button" id="type" (click)="showModelsSelection()">
+                      <div class="toggle-modal-selection">
+                        <input type="hidden" ngModel name="type" id="typeSelectedValue" required>
+                        <b class="modal-selection-selected" id="typeSelectedTitle">Select Type</b>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+                      <div class="modal-selection-menu">
+                        <menu type="context" class="modal-selection-menu-content">
+                          <li class="menu-option" role="button" (click)="typeSelect('Mini')">
+                            <label>Mini</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Standard')">
+                            <label>Standard</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Sport')">
+                            <label>Sport</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Compact')">
+                            <label>Compact</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Economy')">
+                            <label>Economy</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Van')">
+                            <label>Van</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Pickup')">
+                            <label>Pickup</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Other')">
+                            <label>Other</label>
+                          </li>
+                        </menu>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="fuel">Fuel</label>
+                    <div class="modal-selection {{fuelIsShow}}" role="button" id="fuel" (click)="showFuelSelection()">
+                      <div class="toggle-modal-selection">
+                        <input type="hidden" ngModel name="fuel" id="fuelSelectedValue" required>
+                        <b class="modal-selection-selected" id="fuelSelectedTitle">Select Fuel</b>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+                      <div class="modal-selection-menu">
+                        <menu type="context" class="modal-selection-menu-content">
+                          <li class="menu-option" role="button" (click)="fuelSelect('Eletric')">
+                            <label>Eletric</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="fuelSelect('Gasoline')">
+                            <label>Gasoline</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="fuelSelect('Hibrid')">
+                            <label>Hibrid</label>
+                          </li>
+                        </menu>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="capacity">Capacity</label>
+                    <input type="number" ngModel name="capacity" class="form-control" id="capacity" placeholder="Capacity" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="mileage">Mileage</label>
+                    <input type="text" ngModel name="mileage" class="form-control" id="mileage" placeholder="Mileage" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <div class="modal-selection {{stateIsShow}}" role="button" id="state" (click)="showStateSelection()">
+                      <div class="toggle-modal-selection">
+                        <input type="hidden" ngModel name="state" id="stateSelectedValue" required>
+                        <b class="modal-selection-selected" id="stateSelectedTitle">Select State</b>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+                      <div class="modal-selection-menu">
+                        <menu type="context" class="modal-selection-menu-content">
+                          <li class="menu-option" role="button" (click)="stateSelect('New')">
+                            <label>New</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="stateSelect('Used')">
+                            <label>Used</label>
+                          </li>
+                        </menu>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" ngModel name="price" class="form-control" id="price" placeholder="Price" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="saller">Saller</label>
+                  <input type="text" ngModel name="saller" class="form-control" id="saller" placeholder="Saller" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+                </div>
+                <div class="form-group">
+                  <label for="imageUrl">Image URL</label>
+                  <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="announce-form" class="btn btn-secondary modal-close">Close</button>
+                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Publish</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Edit Modal -->
+      <div class="modal fade" id="updateAnnouncementModal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="adddeveloperModalLabel">Edit Announce</h5>
+              <button type="button" class="modal-close">
+                <i class="fa fa-close"></i>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #addForm="ngForm">
+                <div class="form-group">
+                  <label for="brand">Brand</label>
+                  <input type="text" ngModel="{{editAnnouncement?.brand}}" name="brand" class="form-control" id="brand" placeholder="Brand" required>
+                </div>
+                <div class="form-group">
+                  <label for="model">Model</label>
+                  <input type="text" ngModel="{{editAnnouncement?.model}}" name="model" class="form-control" id="model" placeholder="Model" required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="type">Type</label>
+                    <div class="modal-selection {{modelsIsShow}}" role="button" id="type" (click)="showModelsSelection()">
+                      <div class="toggle-modal-selection">
+                        <input type="hidden" ngModel="{{editAnnouncement?.type}}" name="type" id="typeSelectedValue" required>
+                        <b class="modal-selection-selected" id="typeSelectedTitle">{{editAnnouncement?.type}}</b>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+                      <div class="modal-selection-menu">
+                        <menu type="context" class="modal-selection-menu-content">
+                          <li class="menu-option" role="button" (click)="typeSelect('Mini')">
+                            <label>Mini</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Standard')">
+                            <label>Standard</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Sport')">
+                            <label>Sport</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Compact')">
+                            <label>Compact</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Economy')">
+                            <label>Economy</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Van')">
+                            <label>Van</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Pickup')">
+                            <label>Pickup</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="typeSelect('Other')">
+                            <label>Other</label>
+                          </li>
+                        </menu>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="fuel">Fuel</label>
+                    <div class="modal-selection {{fuelIsShow}}" role="button" id="fuel" (click)="showFuelSelection()">
+                      <div class="toggle-modal-selection">
+                        <input type="hidden" ngModel="{{editAnnouncement?.fuel}}" name="fuel" id="fuelSelectedValue" required>
+                        <b class="modal-selection-selected" id="fuelSelectedTitle">{{editAnnouncement?.fuel}}</b>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+                      <div class="modal-selection-menu">
+                        <menu type="context" class="modal-selection-menu-content">
+                          <li class="menu-option" role="button" (click)="fuelSelect('Eletric')">
+                            <label>Eletric</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="fuelSelect('Gasoline')">
+                            <label>Gasoline</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="fuelSelect('Hibrid')">
+                            <label>Hibrid</label>
+                          </li>
+                        </menu>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="capacity">Capacity</label>
+                    <input type="number" ngModel="{{editAnnouncement?.capacity}}" name="capacity" class="form-control" id="capacity" placeholder="Capacity" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="mileage">Mileage</label>
+                    <input type="text" ngModel="{{editAnnouncement?.mileage}}" name="mileage" class="form-control" id="mileage" placeholder="Mileage" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="state">State</label>
+                    <div class="modal-selection {{stateIsShow}}" role="button" id="state" (click)="showStateSelection()">
+                      <div class="toggle-modal-selection">
+                        <input type="hidden" ngModel="{{editAnnouncement?.state}}" name="state" id="stateSelectedValue" required>
+                        <b class="modal-selection-selected" id="stateSelectedTitle">{{editAnnouncement?.state}}</b>
+                        <i class="fa fa-chevron-down"></i>
+                      </div>
+                      <div class="modal-selection-menu">
+                        <menu type="context" class="modal-selection-menu-content">
+                          <li class="menu-option" role="button" (click)="stateSelect('New')">
+                            <label>New</label>
+                          </li>
+                          <li class="menu-option" role="button" (click)="stateSelect('Used')">
+                            <label>Used</label>
+                          </li>
+                        </menu>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="text" ngModel="{{editAnnouncement?.price}}" name="price" class="form-control" id="price" placeholder="Price" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="saller">Saller</label>
+                  <input type="text" ngModel="{{editAnnouncement?.seller}}" name="saller" class="form-control" id="saller" placeholder="Saller" required>
+                </div>
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" ngModel="{{editAnnouncement?.phone}}" name="phone" class="form-control" id="phone" placeholder="Phone" required>
+                </div>
+                <div class="form-group">
+                  <label for="imageUrl">Image URL</label>
+                  <input type="text" ngModel="{{editAnnouncement?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" id="announce-form" class="btn btn-secondary modal-close">Close</button>
+                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  
+    <!-- Delete Modal -->
+    <!-- <div class="modal fade" id="deleteDeveloperModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModelLabel">Delete developer</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to delete developer ?</p>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+              <button class="btn btn-danger" data-dismiss="modal">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  <!-- Notification for no developers -->
+  <!-- <div class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No developers!</h4>
+      <p>No developers were found.</p>
+    </div>
+  </div> -->
+</div>

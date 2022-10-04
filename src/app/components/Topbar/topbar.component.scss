@@ -1,0 +1,23 @@
+.app-main-top-bar {
+  width: 100%;
+  height: var(--TopBarHeight);
+  border-bottom: 1px solid var(--Platinum);
+  .bar-content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 600px 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    gap: 20px;
+    padding-inline: var(--DefaultSpace);
+    .bar-column:first-child {
+      display: flex;
+      justify-content: flex-start;
+    }
+    .bar-column:last-child {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

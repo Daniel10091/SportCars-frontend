@@ -1,0 +1,26 @@
+.app-search {
+  position: relative;
+  .search-form {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-inline: 10px;
+    background-color: var(--Platinum);
+    border: 1px solid var(--LightGrey);
+    border-radius: 14px;
+    .form-control {
+      width: 100%;
+      height: 40px;
+      padding-inline: 10px;
+      font-family: var(--Poppins);
+      font-size: 16px;
+      color: var(--EerieBlack);
+      background-color: transparent;
+      border-radius: 8px;
+      border: 0;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+}

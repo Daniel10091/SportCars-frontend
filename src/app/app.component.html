@@ -1,0 +1,533 @@
+<!-- =================== main =================== -->
+<main class="app-main">
+  <!-- =================== Header =================== -->
+  <!-- <app-header></app-header> -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="app-logo">
+        <a href="/">SportCars</a>
+      </div>
+      <menu type="toolbar" class="header-options">
+        <li class="option-item">
+          <a class="app-header-button" (click)="onOpenModal(null, 'add')">Announce</a>
+        </li>
+        <li class="option-item">
+          <a class="app-header-button">Register</a>
+        </li>
+        <li class="option-item">
+          <a class="app-header-button app-primary-btn">Log in</a>
+        </li>
+      </menu>
+    </div>
+  </header>
+  <!-- =================== Top Bar =================== -->
+  <!-- <app-topbar></app-topbar> -->
+  
+  <div class="app-main-top-bar">
+    <div class="bar-content">
+      <!-- =================== Car Localization =================== -->
+      <div class="bar-column">
+        <topbar-localization></topbar-localization>
+      </div>
+      <!-- =================== Search =================== -->
+      <div class="bar-column">
+        <div class="app-search">
+          <form class="search-form" autocomplete="off">
+            <input type="search" (ngModelChange)="searchAnnouncements(key.value)" #key="ngModel" ngModel 
+              name="key" id="searchName" class="form-control" placeholder="Search vehicles..." required>
+          </form>
+        </div>
+      </div>
+      <!-- =================== Models Selection =================== -->
+      <div class="bar-column">
+        <topbar-models></topbar-models>
+      </div>
+    </div>
+  </div>
+  <!-- =================== Sidebar =================== -->
+  <app-sidebar></app-sidebar>
+  <!-- =================== Result =================== -->
+  <!-- <app-result></app-result> -->
+
+  <div class="container-card-vehicle" id="main-container">
+    <div class="container-card-vehicle-header">
+      <div class="result-length">
+        <b id="resultLengthTextArea">{{resultLengthText}} {{resultLengthText > 1 ? 'vehicles' : 'vehicle'}} </b>
+      </div>
+      <div class="sort-content">
+        <b>Sort by</b>
+        <div class="sort-selection {{sortIsShow}}" (click)="showSortSelection()">
+          <div class="toggle-sort-selection">
+            <b class="sort-selection-selected">Best match</b>
+            <i class="fa fa-chevron-down"></i>
+          </div>
+          <div class="sort-selection-menu">
+            <menu type="context" class="sort-selection-menu-content">
+              <li class="menu-option">
+                <label>Best match</label>
+              </li>
+            </menu>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-card-vehicle-container">
+      <div class="container-card-vehicle-content">
+        <!-- <poster-card></poster-card> -->
+
+
+        <div class="poster-container">
+          <div class="poster-card" *ngFor="let announcement of announcements">
+            <div class="poster-gallery">
+              <div class="poster-image">
+                <img src="{{announcement.imageUrl}}" alt="">
+              </div>
+            </div>
+            <div class="poster-content">
+              <header class="poster-header">
+                <b>{{announcement.type}}</b>
+                <label>{{announcement.brand}} {{announcement.model}}</label>
+                <div class="poster-deal-tag">
+                  <span>Special deal</span>
+                </div>
+              </header>
+              <div class="poster-features">
+                <b>Features</b>
+                <div class="features-row">
+                  <div class="capacity">
+                    <i class="fa fa-users"></i>
+                    <span>{{announcement.capacity}}</span>
+                  </div>
+                  <div class="Fuel">
+                    <i class="fa fa-gas-pump"></i>
+                    <span>{{announcement.fuel}}</span>
+                  </div>
+                </div>
+                <div class="features-row">
+                  <div class="Fuel">
+                    <i class="fa fa-gauge"></i>
+                    <span>{{announcement.mileage}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="poster-price-container">
+                <div class="poster-price">
+                  <b>${{announcement.price}}</b>
+                </div>
+                <button (click)="showAnnouncementModal(announcement)" class="poster-details-btn">More details</button>
+              </div>
+            </div>
+            <div class="poster-actions">
+              <a (click)="onOpenModal(announcement, 'edit')" class="poster-action-btn tooltips" data-placement="top" data-original-title="Edit">
+                <i class="fa fa-pencil"></i>
+              </a>
+              <a (click)="onOpenModal(announcement, 'delete')" class="poster-action-btn tooltips" data-placement="top" data-original-title="Delete">
+                <i class="fa fa-trash"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+  
+        <!-- Add developer Modal -->
+        <div class="modal fade" id="addAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="adddeveloperModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="adddeveloperModalLabel">Add Announce</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddAnnouncement(addForm)">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="brand">Brand</label>
+                      <input type="text" ngModel name="brand" class="form-control" id="brand" placeholder="Brand" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="model">Model</label>
+                      <input type="text" ngModel name="model" class="form-control" id="model" placeholder="Model" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="type">Type</label>
+                      <div class="modal-selection {{modelsIsShow}}" role="button" id="type" (click)="showModelsSelection()">
+                        <div class="toggle-modal-selection">
+                          <input type="hidden" ngModel="{{addTypeValue}}" name="type" id="typeSelectedValueModalAdd" required>
+                          <b class="modal-selection-selected" id="typeSelectedTitleModalAdd">Select Type</b>
+                          <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="modal-selection-menu">
+                          <menu type="context" class="modal-selection-menu-content">
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Mini')">
+                              <label>Mini</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Standard')">
+                              <label>Standard</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Sport')">
+                              <label>Sport</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Compact')">
+                              <label>Compact</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Economy')">
+                              <label>Economy</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Van')">
+                              <label>Van</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Pickup')">
+                              <label>Pickup</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalAdd('Other')">
+                              <label>Other</label>
+                            </li>
+                          </menu>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="fuel">Fuel</label>
+                      <div class="modal-selection {{fuelIsShow}}" role="button" id="fuel" (click)="showFuelSelection()">
+                        <div class="toggle-modal-selection">
+                          <input type="hidden" ngModel="{{addFuelValue}}" name="fuel" id="fuelSelectedValueModalAdd" required>
+                          <b class="modal-selection-selected" id="fuelSelectedTitleModalAdd">Select Fuel</b>
+                          <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="modal-selection-menu">
+                          <menu type="context" class="modal-selection-menu-content">
+                            <li class="menu-option" role="button" (click)="fuelSelectModalAdd('Eletric')">
+                              <label>Eletric</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="fuelSelectModalAdd('Gasoline')">
+                              <label>Gasoline</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="fuelSelectModalAdd('Hibrid')">
+                              <label>Hibrid</label>
+                            </li>
+                          </menu>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="capacity">Capacity</label>
+                        <input type="number" ngModel name="capacity" class="form-control" id="capacity" placeholder="Capacity" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="mileage">Mileage</label>
+                        <input type="text" ngModel name="mileage" class="form-control" id="mileage" placeholder="Mileage" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <div class="modal-selection {{stateIsShow}}" role="button" id="state" (click)="showStateSelection()">
+                        <div class="toggle-modal-selection">
+                          <input type="hidden" ngModel="{{addStateValue}}" name="state" id="stateSelectedValueModalAdd" required>
+                          <b class="modal-selection-selected" id="stateSelectedTitleModalAdd">Select State</b>
+                          <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="modal-selection-menu">
+                          <menu type="context" class="modal-selection-menu-content">
+                            <li class="menu-option" role="button" (click)="stateSelectModalAdd('New')">
+                              <label>New</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="stateSelectModalAdd('Used')">
+                              <label>Used</label>
+                            </li>
+                          </menu>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="price">Price</label>
+                      <input type="text" ngModel name="price" class="form-control" id="price" placeholder="Price" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="seller">Seller</label>
+                      <input type="text" ngModel name="seller" class="form-control" id="seller" placeholder="Seller" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="text" ngModel name="phone" class="form-control" id="phone" placeholder="Phone" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" ngModel name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="add-announce-form" class="btn btn-secondary modal-close" data-dismiss="modal">Close</button>
+                    <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Publish</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="developerEditModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="adddeveloperModalLabel">Edit Announce {{editAnnouncement?.brand}} {{editAnnouncement?.model}}</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form #editForm="ngForm">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="brand">Brand</label>
+                      <input type="text" ngModel="{{editAnnouncement?.brand}}" name="brand" class="form-control" id="brand" placeholder="Brand" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="model">Model</label>
+                      <input type="text" ngModel="{{editAnnouncement?.model}}" name="model" class="form-control" id="model" placeholder="Model" required>
+                    </div>
+                  </div>
+                  <input type="hidden" ngModel="{{editAnnouncement?.id}}" name="id" class="form-control" id="id">
+                  <input type="hidden" ngModel="{{editAnnouncement?.announcementCode}}" name="announcementCode" class="form-control" id="announcementCode">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="type">Type</label>
+                      <div class="modal-selection {{modelsIsShow}}" role="button" id="type" (click)="showModelsSelection()">
+                        <div class="toggle-modal-selection">
+                          <input type="hidden" ngModel="{{editAnnouncement?.type}} {{editTypeValue}}" name="type" id="typeSelectedValueModalEdit" required>
+                          <b class="modal-selection-selected" id="typeSelectedTitleModalEdit">{{editAnnouncement?.type}}</b>
+                          <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="modal-selection-menu">
+                          <menu type="context" class="modal-selection-menu-content">
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Mini')">
+                              <label>Mini</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Standard')">
+                              <label>Standard</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Sport')">
+                              <label>Sport</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Compact')">
+                              <label>Compact</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Economy')">
+                              <label>Economy</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Van')">
+                              <label>Van</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Pickup')">
+                              <label>Pickup</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="typeSelectModalEdit('Other')">
+                              <label>Other</label>
+                            </li>
+                          </menu>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="fuel">Fuel</label>
+                      <div class="modal-selection {{fuelIsShow}}" role="button" id="fuel" (click)="showFuelSelection()">
+                        <div class="toggle-modal-selection">
+                          <input type="hidden" ngModel="{{editAnnouncement?.fuel}} {{editFuelValue}}" name="fuel" id="fuelSelectedValueModalEdit" required>
+                          <b class="modal-selection-selected" id="fuelSelectedTitleModalEdit">{{editAnnouncement?.fuel}}</b>
+                          <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="modal-selection-menu">
+                          <menu type="context" class="modal-selection-menu-content">
+                            <li class="menu-option" role="button" (click)="fuelSelectModalEdit('Eletric')">
+                              <label>Eletric</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="fuelSelectModalEdit('Gasoline')">
+                              <label>Gasoline</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="fuelSelectModalEdit('Hibrid')">
+                              <label>Hibrid</label>
+                            </li>
+                          </menu>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="capacity">Capacity</label>
+                      <input type="number" ngModel="{{editAnnouncement?.capacity}}" name="capacity" class="form-control" id="capacity" placeholder="Capacity" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="mileage">Mileage</label>
+                      <input type="text" ngModel="{{editAnnouncement?.mileage}}" name="mileage" class="form-control" id="mileage" placeholder="Mileage" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <div class="modal-selection {{stateIsShow}}" role="button" id="state" (click)="showStateSelection()">
+                        <div class="toggle-modal-selection">
+                          <input type="hidden" ngModel="{{editAnnouncement?.state}}  {{editStateValue}}" name="state" id="stateSelectedValueModalEdit" required>
+                          <b class="modal-selection-selected" id="stateSelectedTitleModalEdit">{{editAnnouncement?.state}}</b>
+                          <i class="fa fa-chevron-down"></i>
+                        </div>
+                        <div class="modal-selection-menu">
+                          <menu type="context" class="modal-selection-menu-content">
+                            <li class="menu-option" role="button" (click)="stateSelectModalEdit('New')">
+                              <label>New</label>
+                            </li>
+                            <li class="menu-option" role="button" (click)="stateSelectModalEdit('Used')">
+                              <label>Used</label>
+                            </li>
+                          </menu>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="price">Price</label>
+                      <input type="text" ngModel="{{editAnnouncement?.price}}" name="price" class="form-control" id="price" placeholder="Price" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="seller">Seller</label>
+                      <input type="text" ngModel="{{editAnnouncement?.seller}}" name="seller" class="form-control" id="seller" placeholder="Seller" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="text" ngModel="{{editAnnouncement?.phone}}" name="phone" class="form-control" id="phone" placeholder="Phone" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="imageUrl">Image URL</label>
+                    <input type="text" ngModel="{{editAnnouncement?.imageUrl}}" name="imageUrl" class="form-control" id="imageUrl" placeholder="Image URL" required>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" id="announce-form" data-dismiss="modal" class="btn btn-secondary modal-close">Close</button>
+                    <button (click)="onUpdateAnnouncement(editForm.value)" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Delete Modal -->
+        <div class="modal fade" id="deleteAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModelLabel">Delete Announce</h5>
+                <button type="button" class="modal-close close" data-dismiss="modal" aria-label="Close">
+                  <i class="fa fa-close"></i>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete Announce {{deleteAnnouncement?.brand}} {{deleteAnnouncement?.model}}?</p>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                  <button (click)="onDeleteAnnouncement(deleteAnnouncement?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Notification for no announcement -->
+        <!-- <div class="col-lg-12 col-md-12 col-xl-12">
+          <div class="alert alert-info" role="alert">
+            <h4 class="alert-heading">No developers!</h4>
+            <p>No developers were found.</p>
+          </div>
+        </div> -->
+        
+        <div class="announcement-modal {{announcementModalIsShow}}">
+          <header class="announcement-header">
+            <button (click)="closeAnnouncementModal()" class="close-announcement-modal">
+              <i class="fa fa-close"></i>
+            </button>
+          </header>
+          <div class="announcement-body">
+            <div class="announcement-gallery">
+              <div class="gallery-content">
+                <img src="{{showAnnouncement?.imageUrl}}" alt="">
+              </div>
+            </div>
+            <main class="announcement-container">
+              <div class="announcement-content">
+                <div class="announcement-header-container">
+                  <header class="header">
+                    <h2>{{showAnnouncement?.brand}} <span>{{showAnnouncement?.model}}</span></h2>
+                    <h3>{{showAnnouncement?.type}}</h3>
+                  </header>
+                </div>
+                <div class="announcement-price-container">
+                  <div class="announcement-price">
+                    <h1>$ {{showAnnouncement?.price}}</h1>
+                  </div>
+                </div>
+                <div class="announcement-info-container">
+                  <b>Features</b>
+                  <div class="info-content">
+                    <div class="info-row">
+                      <div class="info-column">
+                        <i class="fa fa-users"></i>
+                        <span>{{showAnnouncement?.capacity}}</span>
+                      </div>
+                      <div class="info-column">
+                        <i class="fa fa-gauge"></i>
+                        <span>{{showAnnouncement?.mileage}}</span>
+                      </div>
+                      <div class="info-column">
+                        <i class="fa fa-gas-pump"></i>
+                        <span>{{showAnnouncement?.fuel}}</span>
+                      </div>
+                      <div class="info-column">
+                        <i class="fa fa-car"></i>
+                        <span>{{showAnnouncement?.state}}</span>
+                      </div>
+                    </div>
+                    <div class="info-row">
+                      <div class="info-column">
+                        <i class="fa fa-user"></i>
+                        <span>{{showAnnouncement?.seller}}</span>
+                      </div>
+                      <div class="info-column">
+                        <i class="fa fa-location-dot"></i>
+                        <span>Los Angeles, Califórnia</span>
+                      </div>
+                      <div class="info-column">
+                        <i class="fa fa-phone"></i>
+                        <span>{{showAnnouncement?.phone}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="announcement-about-container">
+                  <b>About</b>
+                  <div class="about-content">
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est, delectus velit laudantium placeat voluptas rem qui, quasi expedita ab, fugiat officiis? Provident exercitationem facilis consectetur quidem qui molestiae vero laudantium asperiores, dolore illo rerum libero sapiente consequatur velit dolorum perferendis.</p>
+                  </div>
+                </div>
+              </div>
+            </main>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+</main>

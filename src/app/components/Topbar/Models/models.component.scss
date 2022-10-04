@@ -1,0 +1,91 @@
+.car-models-selection {
+  position: relative;
+  width: 200px;
+  height: 60px;
+  background-color: var(--Platinum);
+  border-radius: 14px;
+  will-change: contents;
+  .toggle-car-models-selection {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 15px;
+    line-height: 22px;
+    border: 1px solid var(--LightGrey);
+    border-radius: 14px;
+    will-change: contents;
+    cursor: pointer;
+    b {
+      font-size: 16px;
+      font-weight: normal;
+      color: var(--EerieBlack);
+      pointer-events: none;
+      will-change: contents;
+      user-select: none;
+    }
+    i {
+      font-size: 18px;
+      color: var(--EerieBlack);
+      will-change: contents;
+      transition: all 0.2s ease;
+    }
+  }
+  .car-models-selection-menu {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    max-height: 400px;
+    display: none;
+    background-color: var(--Platinum);
+    border: 1px solid var(--LightGrey);
+    border-top: 0;
+    border-radius: 0 0 14px 14px;
+    will-change: contents;
+    z-index: 1000;
+    overflow: hidden;
+    .car-models-selection-menu-content {
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      overflow-y: visible;
+      .menu-option {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding-inline: 15px;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--LightGrey);
+        }
+        cursor: pointer;
+        label {
+          font-size: 16px;
+          color: var(--EerieBlack);
+          pointer-events: none;
+          user-select: none;
+        }
+        &:first-child label {
+          color: var(--DavysGrey);
+        }
+      }
+    }
+  }
+  &.is-show {
+    border-radius: 14px 14px 0 0;
+    .toggle-car-models-selection {
+      border-radius: 14px 14px 0 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+      i {
+        transform: rotate(180deg);
+      }
+    }
+    .car-models-selection-menu {
+      display: flex;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+    }
+  }
+}

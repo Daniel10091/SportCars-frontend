@@ -1,0 +1,145 @@
+.container-card-vehicle {
+  width: 100%;
+  height: calc(100% - (var(--HeaderHeight) + var(--TopBarHeight)));
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 100%;
+  background-color: var(--Cultured);
+  overflow: hidden;
+  overflow-y: visible;
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--White);
+  }
+  .container-card-vehicle-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: var(--DefaultSpace);
+    padding-block: 20px;
+    .result-length {
+      b {
+        font-size: 16px;
+        font-weight: normal;
+        color: var(--QuickSilver);
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+    .sort-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      b {
+        font-size: 16px;
+        font-weight: normal;
+        color: var(--QuickSilver);
+        pointer-events: none;
+        user-select: none;
+      }
+      .sort-selection {
+        position: relative;
+        width: 180px;
+        height: 60px;
+        background-color: var(--Platinum);
+        border-radius: 14px;
+        will-change: contents;
+        .toggle-sort-selection {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding-inline: 15px;
+          line-height: 22px;
+          border: 1px solid var(--LightGrey);
+          border-radius: 14px;
+          will-change: contents;
+          cursor: pointer;
+          b {
+            font-size: 16px;
+            font-weight: normal;
+            color: var(--EerieBlack);
+            pointer-events: none;
+            will-change: contents;
+            user-select: none;
+          }
+          i {
+            font-size: 18px;
+            color: var(--EerieBlack);
+            will-change: contents;
+            transition: all 0.2s ease;
+          }
+        }
+        .sort-selection-menu {
+          position: absolute;
+          top: 60px;
+          left: 0;
+          width: 100%;
+          max-height: 400px;
+          display: none;
+          background-color: var(--Platinum);
+          border: 1px solid var(--LightGrey);
+          border-top: 0;
+          border-radius: 0 0 14px 14px;
+          will-change: contents;
+          z-index: 1000;
+          overflow: hidden;
+          .sort-selection-menu-content {
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+            overflow-y: visible;
+            .menu-option {
+              width: 100%;
+              height: 50px;
+              display: flex;
+              justify-content: flex-start;
+              align-items: center;
+              padding-inline: 15px;
+              &:not(:last-child) {
+                border-bottom: 1px solid var(--LightGrey);
+              }
+              cursor: pointer;
+              label {
+                font-size: 16px;
+                color: var(--EerieBlack);
+                pointer-events: none;
+                user-select: none;
+              }
+              &:first-child label {
+                color: var(--DavysGrey);
+              }
+            }
+          }
+        }
+        &.is-show {
+          border-radius: 14px 14px 0 0;
+          .toggle-sort-selection {
+            border-radius: 14px 14px 0 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+            i {
+              transform: rotate(180deg);
+            }
+          }
+          .sort-selection-menu {
+            display: flex;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.16);
+          }
+        }
+      }
+    }
+  }
+  .container-card-vehicle-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    .container-card-vehicle-content {
+      position: relative;
+      display: flex;
+      padding-inline: var(--DefaultSpace);
+      padding-bottom: var(--DefaultSpace);
+    }
+  }
+}
